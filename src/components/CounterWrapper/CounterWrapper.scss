@@ -1,0 +1,40 @@
+.counter-wrapper {
+    max-width: 500px;
+    height: 250px;
+    margin: 0 auto;
+    border: 3px solid #69DAFA;
+    border-radius: 10px;
+    padding: 20px;
+
+    @media (max-width: 991px) {
+        padding: 10px;
+        border-radius: 5px;
+        border-width: 1px;
+    }
+
+    .counter-in {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        gap: 20px;
+
+        @media (max-width: 991px) {
+            gap: 10px;
+        }
+    }
+
+    .btns {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 20px;
+        border: 3px solid #69DAFA;
+        border-radius: 10px;
+
+        @media (max-width: 991px) {
+            padding: 10px;
+            border-radius: 5px;
+            border-width: 1px;
+        }
+    }
+}

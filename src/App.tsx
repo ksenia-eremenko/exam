@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { CounterWrapper } from './components/CounterWrapper/CounterWrapper';
 
 function App() {
+  let [counter, setCounter] = useState<number>(0);
+
+    const onClickIncrement = () => {
+        if (counter < 5) {
+            setCounter(++counter)
+        }
+    }
+    const onClickDecrement = () => {
+        if (counter > 0) {
+            setCounter(--counter)
+        }
+    }
+    const onClickReset = () => {
+        setCounter(0);
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <CounterWrapper 
+      onClickIncrement={onClickIncrement}
+      onClickDecrement={onClickDecrement}
+      onClickReset={onClickReset}
+      counter={counter}
+      />
     </div>
-  );
+  )
 }
 
 export default App;

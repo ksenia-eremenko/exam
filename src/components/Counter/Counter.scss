@@ -1,0 +1,43 @@
+.counter {
+  color: #16181D;
+  background: #69DAFA;
+  border-radius: 10px;
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.3s;
+
+  @media (max-width: 991px) {
+    border-radius: 5px;
+  }
+
+  .number {
+    font-size: 80px;
+    font-weight: 600;
+
+    &.red {
+      color: #EE1D49;
+    }
+  }
+
+  &.color1 {
+    background: darken(#69DAFA, 5%);
+  }
+
+  &.color2 {
+    background: darken(#69DAFA, 10%);
+  }
+
+  &.color3 {
+    background: darken(#69DAFA, 15%);
+  }
+
+  &.color4 {
+    background: darken(#69DAFA, 20%);
+  }
+
+  &.color5 {
+    background: darken(#69DAFA, 25%);
+  }
+}
