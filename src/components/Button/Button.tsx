@@ -4,19 +4,15 @@ import './Button.scss'
 type ButtonPropstype = {
     callBack: () => void
     name: string
-    disabled?: boolean
-    className?: string
+    disabled: boolean
+    className: string
 }
 
-const Button = (props: ButtonPropstype) => {
-    const { callBack, name, disabled, className } = props;
-    const onClickHundler = () => {
-        callBack();
-    }
+const Button = ({ callBack, name, disabled, className }: ButtonPropstype) => {
 
     return (
         <button
-            onClick={onClickHundler}
+            onClick={callBack}
             disabled={disabled}
             className={`${className}${(disabled) ? ' disabled' : ''}`}
         >{name}</button>

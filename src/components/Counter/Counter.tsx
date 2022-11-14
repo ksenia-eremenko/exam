@@ -3,21 +3,18 @@ import './Counter.scss'
 
 type CounterPropsType = {
     counter: number
+    maxValue: number
+    error: string
+    infoCounter: string
 }
 
-const Counter = (props: CounterPropsType) => {
-    const { counter } = props
-
-    const bgCounter = `counter ${
-        counter === 1 ? 'color1'
-        : counter === 2 ? 'color2'
-            : counter === 3 ? 'color3'
-                : counter === 4 ? 'color4'
-                    : counter === 5 ? 'color5' : ''}`
-
+const Counter = ({ counter, maxValue, error, infoCounter }: CounterPropsType) => {
+    
     return (
-        <div className={bgCounter}>
-            <div className={`${(counter === 5 ? 'red ' : '')}number`}>{counter}</div>
+        <div className="counter">
+            <div className={`${(counter === maxValue ? 'red ' : '')}number`}>
+                {(infoCounter) ? <div className="info-text">{infoCounter}</div> : (error) ? <div className="error-text">{error}</div> : counter}
+            </div>
         </div>
     )
 }
