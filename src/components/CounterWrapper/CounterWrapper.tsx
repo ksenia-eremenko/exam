@@ -14,8 +14,8 @@ type CounterWrapperPropsTypes = {
     valueCounterMax: number
     valueCounterMin: number
     changeMinMaxCounter: (max: number, min: number) => void
-    onChangeHandlerMax: (e: ChangeEvent<HTMLInputElement>) => void
-    onChangeHandlerMin: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeMaxValue: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeMinValue: (e: ChangeEvent<HTMLInputElement>) => void
     error: string
     errorInputMax: boolean
     errorInputMin: boolean
@@ -24,15 +24,15 @@ type CounterWrapperPropsTypes = {
     infoCounter: string
 }
 
-export const CounterWrapper = ({ incCounter, decCounter, resetCounter, counter, maxValue, minValue, valueCounterMax, valueCounterMin, changeMinMaxCounter, onChangeHandlerMax, onChangeHandlerMin, error, errorInputMax, errorInputMin, errorInputs, btnDisabled, infoCounter }: CounterWrapperPropsTypes) => {
+export const CounterWrapper = ({ incCounter, decCounter, resetCounter, counter, maxValue, minValue, valueCounterMax, valueCounterMin, changeMinMaxCounter, onChangeMaxValue, onChangeMinValue, error, errorInputMax, errorInputMin, errorInputs, btnDisabled, infoCounter }: CounterWrapperPropsTypes) => {
     return (
         <div className="counters">
             <CounterSettings
                 valueCounterMax={valueCounterMax}
                 valueCounterMin={valueCounterMin}
                 changeMinMaxCounter={changeMinMaxCounter}
-                onChangeHandlerMax={onChangeHandlerMax}
-                onChangeHandlerMin={onChangeHandlerMin}
+                onChangeMaxValue={onChangeMaxValue}
+                onChangeMinValue={onChangeMinValue}
                 errorInputMax={errorInputMax}
                 errorInputMin={errorInputMin}
                 errorInputs={errorInputs}

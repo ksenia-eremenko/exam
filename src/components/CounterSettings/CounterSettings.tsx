@@ -6,16 +6,15 @@ type CounterSettingsType = {
     valueCounterMax: number
     valueCounterMin: number
     changeMinMaxCounter: (max: number, min: number) => void
-    onChangeHandlerMax: (e: ChangeEvent<HTMLInputElement>) => void
-    onChangeHandlerMin: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeMaxValue: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeMinValue: (e: ChangeEvent<HTMLInputElement>) => void
     errorInputMax: boolean
     errorInputMin: boolean
     errorInputs: boolean
     btnDisabled: boolean
 }
 
-const CounterSettings = (props: CounterSettingsType) => {
-    const { valueCounterMax, valueCounterMin, changeMinMaxCounter, onChangeHandlerMax, onChangeHandlerMin, errorInputMax, errorInputMin, errorInputs, btnDisabled } = props;
+const CounterSettings = ({ valueCounterMax, valueCounterMin, changeMinMaxCounter, onChangeMaxValue, onChangeMinValue, errorInputMax, errorInputMin, errorInputs, btnDisabled }: CounterSettingsType) => {
 
     const onClickHandler = () => {
         changeMinMaxCounter(valueCounterMax, valueCounterMin)
@@ -29,7 +28,7 @@ const CounterSettings = (props: CounterSettingsType) => {
                         <input
                             type="number"
                             value={valueCounterMax}
-                            onChange={onChangeHandlerMax}
+                            onChange={onChangeMaxValue}
                             className={(errorInputMax || errorInputs) ? 'errorInput' : ''}
                         />
                     </div>
@@ -38,7 +37,7 @@ const CounterSettings = (props: CounterSettingsType) => {
                         <input
                             type="number"
                             value={valueCounterMin}
-                            onChange={onChangeHandlerMin}
+                            onChange={onChangeMinValue}
                             className={(errorInputMin || errorInputs) ? 'errorInput' : ''}
                         />
                     </div>
