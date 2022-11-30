@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import Button from '../Button/Button';
 import Counter from '../Counter/Counter';
-import CounterSettings from '../CounterSettings/CounterSettings';
 import './CounterWrapper.scss'
 
 type CounterWrapperPropsTypes = {
@@ -11,33 +10,51 @@ type CounterWrapperPropsTypes = {
     counter: number
     maxValue: number
     minValue: number
-    valueCounterMax: number
-    valueCounterMin: number
     changeMinMaxCounter: (max: number, min: number) => void
     onChangeMaxValue: (e: ChangeEvent<HTMLInputElement>) => void
     onChangeMinValue: (e: ChangeEvent<HTMLInputElement>) => void
-    error: string
-    errorInputMax: boolean
-    errorInputMin: boolean
-    errorInputs: boolean
-    btnDisabled: boolean
-    infoCounter: string
+    error: boolean
+    infoCounter: boolean
 }
 
-export const CounterWrapper = ({ incCounter, decCounter, resetCounter, counter, maxValue, minValue, valueCounterMax, valueCounterMin, changeMinMaxCounter, onChangeMaxValue, onChangeMinValue, error, errorInputMax, errorInputMin, errorInputs, btnDisabled, infoCounter }: CounterWrapperPropsTypes) => {
+export const CounterWrapper = ({ incCounter, decCounter, resetCounter, counter, maxValue, minValue, changeMinMaxCounter, onChangeMaxValue, onChangeMinValue, error, infoCounter }: CounterWrapperPropsTypes) => {
+    const onClickHandler = () => {
+        changeMinMaxCounter(maxValue, minValue)
+    }
     return (
         <div className="counters">
-            <CounterSettings
-                valueCounterMax={valueCounterMax}
-                valueCounterMin={valueCounterMin}
-                changeMinMaxCounter={changeMinMaxCounter}
-                onChangeMaxValue={onChangeMaxValue}
-                onChangeMinValue={onChangeMinValue}
-                errorInputMax={errorInputMax}
-                errorInputMin={errorInputMin}
-                errorInputs={errorInputs}
-                btnDisabled={btnDisabled}
-            />
+            <div className="counter-settings">
+                <div className="counter-settings-in">
+                    <div className="top">
+                        <div className="item">
+                            <div className="text">max value:</div>
+                            <input
+                                type="number"
+                                value={maxValue}
+                                onChange={onChangeMaxValue}
+                                className={(error) ? 'errorInput' : ''}
+                            />
+                        </div>
+                        <div className="item">
+                            <div className="text">start value:</div>
+                            <input
+                                type="number"
+                                value={minValue}
+                                onChange={onChangeMinValue}
+                                className={(error) ? 'errorInput' : ''}
+                            />
+                        </div>
+                    </div>
+                    <div className="bottom">
+                        <Button
+                            callBack={onClickHandler}
+                            name={"Set"}
+                            disabled={error}
+                            className={'styled-btn-2'}
+                        />
+                    </div>
+                </div>
+            </div>
             <div className="counter-wrapper">
                 <div className="counter-in">
                     <Counter counter={counter} maxValue={maxValue} error={error} infoCounter={infoCounter} />
@@ -45,16 +62,16 @@ export const CounterWrapper = ({ incCounter, decCounter, resetCounter, counter, 
                         <Button
                             callBack={incCounter}
                             name={"+ Inc"}
-                            disabled={counter === maxValue || btnDisabled || infoCounter !== ''}
+                            disabled={counter === maxValue || error || infoCounter}
                             className={'styled-btn-1'} />
                         <Button callBack={decCounter}
                             name={"- Dec"}
-                            disabled={counter === minValue || btnDisabled || infoCounter !== ''}
+                            disabled={counter === minValue || error || infoCounter}
                             className={'styled-btn-2'} />
                         <Button
                             callBack={resetCounter}
                             name={"Reset"}
-                            disabled={counter === minValue || btnDisabled || infoCounter !== ''}
+                            disabled={counter === minValue || error || infoCounter}
                             className={'styled-btn-3'} />
                     </div>
                 </div>
