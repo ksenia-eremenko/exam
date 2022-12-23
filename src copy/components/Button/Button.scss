@@ -1,0 +1,38 @@
+button {
+    cursor: pointer;
+    background: #69DAFA;
+    border: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #16181D;
+    padding: 0 10px;
+    font-size: 20px;
+    line-height: 20px;
+    transition-duration: 0.3s;
+    flex-shrink: 0;
+
+    @media (max-width: 991px) {
+        border-radius: 5px;
+    }
+
+    &.disabled {
+        background: #427382;
+        cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+        background: darken(#69DAFA, 20%);
+    }
+
+    &.styled-btn-3:not(:disabled) {
+        background: #EE1D49;
+        color: #fff;
+
+        &:hover {
+            background: darken(#EE1D49, 10%);
+        }
+    }
+}

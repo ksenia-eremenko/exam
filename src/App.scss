@@ -1,0 +1,161 @@
+.App {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 10px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.counters {
+  display: flex;
+}
+
+.counter-wrapper {
+  max-width: 500px;
+  height: 250px;
+  margin: 0 auto;
+  border: 3px solid #69DAFA;
+  border-radius: 10px;
+  padding: 20px;
+
+  @media (max-width: 991px) {
+      padding: 10px;
+      border-radius: 5px;
+      border-width: 1px;
+  }
+
+  .counter-in {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      gap: 20px;
+
+      @media (max-width: 991px) {
+          gap: 10px;
+      }
+  }
+
+  .btns {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 20px;
+      border: 3px solid #69DAFA;
+      border-radius: 10px;
+
+      @media (max-width: 991px) {
+          padding: 10px;
+          border-radius: 5px;
+          border-width: 1px;
+      }
+  }
+}
+
+.counter-settings {
+  max-width: 500px;
+  height: 250px;
+  margin: 0 auto;
+  border: 3px solid #69DAFA;
+  border-radius: 10px;
+  padding: 20px;
+
+  @media (max-width: 991px) {
+      padding: 10px;
+      border-radius: 5px;
+      border-width: 1px;
+  }
+
+  .counter-settings-in {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      .top {
+          border: 3px solid #69DAFA;
+          border-radius: 10px;
+          padding: 20px 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          @media (max-width: 991px) {
+              border-radius: 5px;
+              border-width: 1px;
+          }
+
+          .item {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 30px;
+
+              .text {
+                  color: #69DAFA;
+                  font-weight: 700;
+                  font-size: 18px;
+                  line-height: 25px;
+              }
+
+              input {
+                  outline: none;
+                  background: #fff;
+                  border: 2px solid #69DAFA;
+                  text-align: center;
+                  height: 30px;
+                  border-radius: 4px;
+                  &.errorInput {
+                      color: red;
+                      border: 2px solid red;
+                  }
+              }
+          }
+      }
+      .bottom {
+          border: 3px solid #69DAFA;
+          border-radius: 10px;
+          padding: 20px 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          @media (max-width: 991px) {
+              border-radius: 5px;
+              border-width: 1px;
+          }
+      }
+  }
+}

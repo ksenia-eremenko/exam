@@ -11,14 +11,10 @@ type CounterPropsType = {
 const Counter = ({ counter, maxValue, error, infoCounter }: CounterPropsType) => {
     const textInfo = "Click 'SET'";
     const textError = "Incorrect value!";
-    
     return (
         <div className="counter">
             <div className={`${(counter === maxValue ? 'red ' : '')}number`}>
-                {(error)
-                    ? <div className="error-text">{textError}</div>
-                    : (infoCounter) ? <div className="info-text">{textInfo}</div> : counter
-                }
+                {(infoCounter) ? <div className="info-text">{textInfo}</div> : (error) ? <div className="error-text">{textError}</div> : counter}
             </div>
         </div>
     )

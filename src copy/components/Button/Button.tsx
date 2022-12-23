@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import './Button.scss'
 
 type ButtonPropstype = {
@@ -8,7 +8,8 @@ type ButtonPropstype = {
     className: string
 }
 
-const Button = memo(({ callBack, name, disabled, className }: ButtonPropstype) => {
+const Button = ({ callBack, name, disabled, className }: ButtonPropstype) => {
+
     return (
         <button
             onClick={callBack}
@@ -16,6 +17,6 @@ const Button = memo(({ callBack, name, disabled, className }: ButtonPropstype) =
             className={`${className}${(disabled) ? ' disabled' : ''}`}
         >{name}</button>
     )
-})
+}
 
 export default Button

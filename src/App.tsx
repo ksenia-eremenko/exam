@@ -1,67 +1,55 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import './App.css';
-import { CounterWrapper } from './components/CounterWrapper/CounterWrapper';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import './App.scss';
+import Button from './components/Button/Button';
+import Counter from './components/Counter/Counter';
+import { decCounterAC, incCounterAC, maxValueCounterAC, minValueCounterAC, resetCounterAC, stateType } from './state/counter-reducer/counter-reducer';
+import { AppRootStateType } from './state/store';
 
 function App() {
-  const [minValue, setMinValue] = useState<number>(0)
-  const [maxValue, setMaxValue] = useState<number>(5)
+  const dispatch = useDispatch()
+  let counterValues = useSelector<AppRootStateType, stateType>(state => state.counter);
 
-  const [counter, setCounter] = useState<number>(minValue);
+  let maxValue = counterValues.maxValue;
+  let minValue = counterValues.minValue;
+  let startValue = (counterValues.value < minValue ? minValue : counterValues.value);
 
   const [error, setError] = useState<boolean>(false);
-  const [infoCounter, setInfoCounter] = useState<boolean>(false); //текст на табло
+  const [infoCounter, setInfoCounter] = useState<boolean>(true); //текст на табло
 
   useEffect(() => {
-    let valueMin = localStorage.getItem('minValue'); // получаем значение с localStorage
-    let valueMax = localStorage.getItem('maxValue');
-    if (valueMax) {
-      let newValueMax = JSON.parse(valueMax)
-      setMaxValue(newValueMax)
+    if (maxValue < 0 || minValue < 0 || maxValue < minValue) {
+      setError(true)
     }
-    if (valueMin) {
-      let newValueMin = JSON.parse(valueMin)
-      setMinValue(newValueMin)
-      setCounter(newValueMin)
-    }
-  }, []);
+  }, [maxValue, minValue])
 
-  useEffect(() => {
-    localStorage.setItem('maxValue', JSON.stringify(maxValue)); // отправляем значение в localStorage
-    localStorage.setItem('minValue', JSON.stringify(minValue));
-    errorHandlerMaxValue(maxValue);
-    errorHandlerMinValue(minValue);
-  }, [maxValue, minValue]);
+  const incCounter = useCallback(() => {
+    dispatch(incCounterAC(startValue))
+  }, [dispatch, startValue])
 
-  const incCounter = () => {
-    counter < maxValue && setCounter(counter + 1)
-  }
+  const decCounter = useCallback(() => {
+    dispatch(decCounterAC(startValue))
+  }, [dispatch, startValue])
 
-  const decCounter = () => {
-    counter > minValue && setCounter(counter - 1)
-  }
+  const resetCounter = useCallback(() => {
+    dispatch(resetCounterAC(startValue))
+  }, [dispatch, startValue])
 
-  const resetCounter = () => {
-    setCounter(minValue);
-  }
-
-  const changeMinMaxCounter = (max: number, min: number) => {
-    setMaxValue(max)
-    setMinValue(min)
-    setCounter(min)
+  const changeMinMaxCounter = useCallback(() => {
     setError(false)
     setInfoCounter(false)
-  }
+  }, [setError, setInfoCounter])
 
   const onChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
     let numb = +e.currentTarget.value;
-    setMaxValue(numb);
-    errorHandlerMaxValue(numb);
+    dispatch(maxValueCounterAC(numb))
+    errorHandlerMaxValue(numb)
   }
 
   const onChangeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
     let numb = +e.currentTarget.value;
-    setMinValue(+e.currentTarget.value);
-    errorHandlerMinValue(numb);
+    dispatch(minValueCounterAC(numb))
+    errorHandlerMinValue(numb)
   }
 
   const errorHandlerMaxValue = (numb: number) => {
@@ -83,14 +71,68 @@ function App() {
       setInfoCounter(true)
     }
   }
-
   return (
     <div className="App">
-      <CounterWrapper
+      <div className="counters">
+        <div className="counter-settings">
+          <div className="counter-settings-in">
+            <div className="top">
+              <div className="item">
+                <div className="text">max value:</div>
+                <input
+                  type="number"
+                  value={maxValue}
+                  onChange={onChangeMaxValue}
+                  className={(error) ? 'errorInput' : ''}
+                />
+              </div>
+              <div className="item">
+                <div className="text">start value:</div>
+                <input
+                  type="number"
+                  value={minValue}
+                  onChange={onChangeMinValue}
+                  className={(error) ? 'errorInput' : ''}
+                />
+              </div>
+            </div>
+            <div className="bottom">
+              <Button
+                callBack={() => changeMinMaxCounter()}
+                name={"Set"}
+                disabled={error}
+                className={'styled-btn-2'}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="counter-wrapper">
+          <div className="counter-in">
+            <Counter counter={startValue} maxValue={maxValue} error={error} infoCounter={infoCounter} />
+            <div className="btns">
+              <Button
+                callBack={incCounter}
+                name={"+ Inc"}
+                disabled={startValue === maxValue || error || infoCounter}
+                className={'styled-btn-1'} />
+              <Button callBack={decCounter}
+                name={"- Dec"}
+                disabled={startValue === minValue || error || infoCounter}
+                className={'styled-btn-2'} />
+              <Button
+                callBack={resetCounter}
+                name={"Reset"}
+                disabled={startValue === minValue || error || infoCounter}
+                className={'styled-btn-3'} />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <CounterWrapper
         incCounter={incCounter}
         decCounter={decCounter}
         resetCounter={resetCounter}
-        counter={counter}
+        counter={counterValue}
         maxValue={maxValue}
         minValue={minValue}
         changeMinMaxCounter={changeMinMaxCounter}
@@ -98,7 +140,7 @@ function App() {
         onChangeMinValue={onChangeMinValue}
         error={error}
         infoCounter={infoCounter}
-      />
+      /> */}
     </div >
   )
 }
